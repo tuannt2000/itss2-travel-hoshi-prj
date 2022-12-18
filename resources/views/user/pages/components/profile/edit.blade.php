@@ -1,4 +1,4 @@
-<div class="card mb-4 {{$errors->isEmpty() ? 'd-none' : ''}}" id="profile-edit">
+<div class="card mb-4 {{$errors->has('name') || $errors->has('telephone') ? '' : 'd-none'}}" id="profile-edit">
     <form action="" method="post" class="card-body">
         @csrf
         <div class="row">
