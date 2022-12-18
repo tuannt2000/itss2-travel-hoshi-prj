@@ -82,6 +82,7 @@ class BlogController extends Controller
             DB::commit();
             return back()->with('success', ' Create new blog success');
         } catch (\Exception $e) {
+            dd($e);
             DB::rollBack();
             Log::error($e);
         }
