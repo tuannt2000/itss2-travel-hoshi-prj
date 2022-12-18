@@ -39,7 +39,7 @@ Route::middleware(['role:admin'])->group(function () {
         'as' => 'user'
     ], function () {
         Route::get('/users', [UserController::class, 'index']);
-        Route::delete('/remove', [UserController::class, 'delete'])->name('.remove');
+        Route::post('/remove', [UserController::class, 'delete'])->name('.remove');
     });
     Route::group([
         'prefix' => 'blog',

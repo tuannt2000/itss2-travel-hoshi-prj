@@ -15,7 +15,11 @@ $(document).ready(function($) {
         })
     })
 
-    loadImage()
+    loadImage();
+
+    $('#btn-delete').click(function () {
+        $('#user-id').val($(this).attr('data-value'))
+    })
 });
 
 function loadImage() {

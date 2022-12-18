@@ -50,6 +50,18 @@ class User extends Authenticatable
     const ROLE_USER = 0;
     const ROLE_ADMIN = 1;
 
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($user) { // before delete() method call this
+            $user->blogs()->delete();
+            $user->userPlaceFavourites()->delete();
+            $user->userBlogFavourites()->delete();
+            $user->userBlogVotes()->delete();
+            $user->userBlogComments()->delete();
+        });
+    }
+
     public function blogs()
     {
         return $this->hasMany(Blog::class);

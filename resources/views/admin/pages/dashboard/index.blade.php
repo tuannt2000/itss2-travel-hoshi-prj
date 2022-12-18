@@ -31,11 +31,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
-{{--                            <div class="col-md-6 text-center">--}}
-                                <button type="" class="btn btn-default">
-                                    <a href="{{route('admin.dashboard.place.create')}}">{{ __('Create') }}</a>
-                                </button>
-{{--                            </div>--}}
+                            <button type="" class="btn btn-default">
+                                <a href="{{route('admin.dashboard.place.create')}}">{{ __('Create') }}</a>
+                            </button>
                         </div>
                     </div>
                 </div>
