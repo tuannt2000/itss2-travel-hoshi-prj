@@ -46,7 +46,7 @@
                             <!-- Slide -->
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <img class="image" src="{{asset($placeImage->file_path)}}" alt="alternative">
+                                    <img class="image" src="{{asset('storage/' . $placeImage->file_path)}}" alt="alternative">
                                 </div>
                             </div> <!-- end of swiper-slide -->
                             <!-- end of slide -->
