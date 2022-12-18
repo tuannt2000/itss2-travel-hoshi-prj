@@ -177,3 +177,11 @@ filter:drop-shadow(5px 1px 3px rgba(198, 206, 237, 1));
 	width: 300px;
 	height: 300px;
 }
+
+.has-error {
+    border-color: #dc3545;
+}
+
+.has-error + .invalid-feedback {
+    display: block;
+}

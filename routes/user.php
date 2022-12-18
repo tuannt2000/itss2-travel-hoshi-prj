@@ -7,6 +7,7 @@ use App\Http\Controllers\User\BlogController;
 use App\Http\Controllers\User\CommentController;
 use App\Http\Controllers\User\PlaceController;
 use App\Http\Controllers\User\PlaceFavouriteController;
+use App\Http\Controllers\User\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,5 +58,13 @@ Route::middleware(['role:user'])->group(function () {
     ], function () {
         Route::get('like/{place}', [PlaceFavouriteController::class, 'like'])->name('like');
         Route::get('dislike/{place}', [PlaceFavouriteController::class, 'dislike'])->name('dislike');
+    });
+
+    Route::group([
+        'prefix' => 'profile',
+        'as' => 'profile.'
+    ], function () {
+        Route::get('/', [ProfileController::class, 'index'])->name('index');
+        Route::post('/', [ProfileController::class, 'edit'])->name('edit');
     });
 });

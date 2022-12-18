@@ -34,7 +34,7 @@
             <li class="nav-item dropdown ml-5">
                 <a class="nav-link dropdown-toggle page-scroll" href="#about" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user() ? Auth::user()->name : 'Login' }}</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">My Account</span></a>
+                    <a class="dropdown-item" href="{{route('user.profile.index')}}"><span class="item-text">My Account</span></a>
                     <div class="dropdown-items-divide-hr"></div>
                     <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">My Blog</span></a>
                     <div class="dropdown-items-divide-hr"></div>
