@@ -46,4 +46,11 @@ class AuthController extends Controller
 
         return back()->with(['error' => 'Register failed!'])->onlyInput('email');
     }
+
+    public function logout ()
+    {
+        Auth::logout();
+
+        return redirect()->route('user.auth');
+    }
 }
