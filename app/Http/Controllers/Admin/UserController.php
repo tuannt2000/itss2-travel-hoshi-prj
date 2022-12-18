@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Services\Interfaces\UserService;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -14,13 +15,13 @@ class UserController extends Controller
     }
 
     public function index () {
-        $users = $this->userService->all();
+        $users = $this->userService->getListUser();
         return view('admin.pages.users.index', compact('users'));
     }
 
-    public function delete($id) {
-        if ($this->blogService->delete($id)) {
-            return redirect()->route('admin.user.index')->with('success', 'Delete success');
+    public function delete(Request $request) {
+        if ($this->userService->delete($request->id)) {
+            return back()->with('success', 'Delete success');
         }
 
         return back()->with('error', 'Delete failed!');

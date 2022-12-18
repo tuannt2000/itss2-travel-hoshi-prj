@@ -9,4 +9,5 @@ use App\Models\User;
 interface UserService extends BaseService
 {
     public function create(array $data) : User;
+    public function getListUser();
 }
