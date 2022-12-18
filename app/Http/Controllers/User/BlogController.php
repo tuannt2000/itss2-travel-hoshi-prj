@@ -70,12 +70,10 @@ class BlogController extends Controller
             ]);
 
             if ($file = $request->file('file_path')) {
-                $file_path = Carbon::now()->format('Y_m_d') . '_' . $file->store('');
-                $url = "assets/images/blog/" . Str::slug($validated['title']);
-                $file->move(public_path($url), $file_path);
+                $file_path = $file->store('public/images/' . Str::slug($validated['title']));
 
                 $blog->blogImages()->create([
-                    'file_path' => $url . '/' . $file_path,
+                    'file_path' => explode("public/", $file_path)[1]
                 ]);
             }
 

@@ -46,7 +46,7 @@
                             <!-- Slide -->
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <img class="image" src="{{asset($placeImage->file_path)}}" alt="alternative">
+                                    <img class="image" src="{{asset('storage/' . $placeImage->file_path)}}" alt="alternative">
                                 </div>
                             </div> <!-- end of swiper-slide -->
                             <!-- end of slide -->
@@ -103,7 +103,7 @@
             </div>
             @if (count($blog->blogImages))
             <div class="blog-item__img mt-3 mb-3">
-                <img class="w-80" alt="no file" src="{{asset($blog->blogImages[0]->file_path)}}" />
+                <img class="w-80" alt="no file" src="{{asset('storage/' . $blog->blogImages[0]->file_path)}}" />
             </div>
             @endif
             <p class="blog-item__content">{{$blog->content}}</p>

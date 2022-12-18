@@ -46,20 +46,6 @@
                                     <textarea name="content" id="content" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" style="height: 200px" placeholder="{{ __('Description...') }}" value="" required>{{$place->content}}</textarea>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="form-control-label" for="season"><i class="w3-xxlarge fa fa-map mr-1"></i>{{ __('Location Season') }}</label>
-                                    <select class="form-control" name="season" id="season">
-                                        @foreach (Season::cases() as $season)
-                                            <option class="uppercase" {{$season->value == $place->season ? 'selected' : ''}} value="{{ $season->value }}">{{ $season->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-control-label" for="cost"><i class="w3-xxlarge fa fa-map mr-1"></i>{{ __('Location Cost') }}</label>
-                                    <input type="text" name="cost" id="cost" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Cost...') }}" value="{{$place->cost}}" required>
-                                </div>
-
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-default mt-4">{{ __('Save') }}</button>
                                 </div>
