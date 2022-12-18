@@ -1,4 +1,4 @@
-<div class="card mb-4 {{$errors->isEmpty() ? '' : 'd-none'}}" id="profile-info">
+<div class="card mb-4 {{$errors->has('name') || $errors->has('telephone') ? 'd-none' : ''}}" id="profile-info">
     <div class="card-body">
         <div class="row">
             <div class="col-sm-3">

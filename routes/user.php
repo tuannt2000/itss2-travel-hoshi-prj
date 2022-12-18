@@ -66,5 +66,6 @@ Route::middleware(['role:user'])->group(function () {
     ], function () {
         Route::get('/', [ProfileController::class, 'index'])->name('index');
         Route::post('/', [ProfileController::class, 'edit'])->name('edit');
+        Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('changePassword');
     });
 });

@@ -10,7 +10,7 @@
 
 @section('section')
 
-@include('user.pages.components.helper.alert')
+@include('user.pages.components.helper.alert_4')
 
 <section style="background-color: #eee;">  
     <div class="container py-5">
@@ -22,6 +22,7 @@
                     class="rounded-circle img-fluid" style="width: 150px;">
                     <h5 class="my-3">{{ Auth::user()->name }}</h5>
                     <p class="text-muted mb-1">Hoshi Developer</p>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#changePassword">Change Password</button>
                     <div class="d-flex justify-content-center mb-2">
                     </div>
                 </div>
@@ -130,4 +131,10 @@
         </div>
     </div>
 </section>
+
+@include('user.pages.components.profile.changePassword')
+@endsection
+
+@section('js')
+    <script src="{{asset('assets/js/user/profile.js')}}"></script>
 @endsection
