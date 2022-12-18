@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Place\PlaceRequest;
 use App\Services\Interfaces\PlaceService;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\Place;
@@ -72,11 +71,10 @@ class DashboardController extends Controller
 
             if($files = $request->file('file_path')){
                 foreach($files as $file){
-                    $file_path = Carbon::now()->format('Y_m_d') . '_' . $file->store('');
-                    $url = "assets/images/place/" . Str::slug($validated['address']) . '/' . Str::slug($validated['name']);
-                    $file->move(public_path($url), $file_path);
+                    $file_path = $file->store('public/images/place/' . Str::slug($validated['name']));
+
                     $place->placeImages()->create([
-                        'file_path' => $url . '/' . $file_path,
+                        'file_path' => explode("public/", $file_path)[1]
                     ]);
                 }
             }
@@ -98,15 +96,15 @@ class DashboardController extends Controller
         DB::beginTransaction();
         try {
             $validated = $request->validated();
-            $placeUpdate = $this->placeService->update($place, $request->safe()->only(['name', 'address', 'content']));
+            $this->placeService->update($place, $request->safe()->only(['name', 'address', 'content']));
 
             if ($files = $request->file('file_path')) {
                 $place->placeImages()->delete();
                 foreach($files as $file){
-                    $file_path = Carbon::now()->format('Y_m_d') . '_' . $file->store('');
-                    $file->move(public_path("/assets/images/place/{$validated['name']}"), $file_path);
+                    $file_path = $file->store('public/images/place/' . Str::slug($validated['name']));
+
                     $place->placeImages()->create([
-                        'file_path' => $file_path,
+                        'file_path' => explode("public/", $file_path)[1]
                     ]);
                 }
             }

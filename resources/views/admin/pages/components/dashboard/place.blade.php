@@ -1,7 +1,7 @@
 <div class="card-body">
     <h4 class="title">{{ __($place->name) }}</h4>
     @if (count($placeImages))
-        <img src="{{asset($placeImages[0]->file_path)}}" />
+        <img src="{{asset('storage/' . $placeImages[0]->file_path)}}" />
     @else
         <div class="text-warning">Không có hình ảnh nào</div>
     @endif

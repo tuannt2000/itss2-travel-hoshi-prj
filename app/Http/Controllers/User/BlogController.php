@@ -73,7 +73,7 @@ class BlogController extends Controller
                 $file_path = $file->store('public/images/' . Str::slug($validated['title']));
 
                 $blog->blogImages()->create([
-                    'file_path' => explode("public/", $file_path)[1],
+                    'file_path' => explode("public/", $file_path)[1]
                 ]);
             }
 

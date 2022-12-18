@@ -6,14 +6,14 @@
             <div class="row">
                 <div class="col-md-6">
                     @if (count($placeImages))
-                        <img id="place-image" src="{{asset($placeImages[0]->file_path)}}" />
+                        <img id="place-image" src="{{asset('storage/' . $placeImages[0]->file_path)}}" />
                     @else
                         Không có hình ảnh nào
                     @endif
                 </div>
                 <div class="thumbnails d-none">
                     @foreach ($placeImages as $placeImage)
-                        <img src="{{asset($placeImage->file_path)}}">
+                        <img src="{{asset('storage/' . $placeImage->file_path)}}">
                     @endforeach
                 </div>
                 <div class="col-md-6 align-items-center">
