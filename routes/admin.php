@@ -46,6 +46,9 @@ Route::middleware(['role:admin'])->group(function () {
         'as' => 'blog'
     ], function () {
         Route::get('/blogs', [BlogController::class, 'index']);
+        Route::get('/my', [BlogController::class, 'myblog'])->name('.my');
+        Route::get('/create', [BlogController::class, 'create'])->name('.create');
+        Route::get('/update/{id}', [BlogController::class, 'update'])->name('.update');
         Route::delete('/remove', [BlogController::class, 'delete'])->name('.remove');
     });
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

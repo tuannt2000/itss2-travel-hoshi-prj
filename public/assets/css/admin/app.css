@@ -117,3 +117,7 @@ p.detail {
     color: #d3cfcf;
     top: 8px;
 }
+
+.create-blog-btn {
+    margin-bottom: 1rem;
+}
