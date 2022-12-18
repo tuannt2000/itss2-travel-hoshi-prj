@@ -5,7 +5,7 @@
 @extends('user.layout.page')
 
 @section('title')
-<title>Homee</title>
+<title>Home</title>
 @endsection
 
 @section('header')

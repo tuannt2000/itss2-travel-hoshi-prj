@@ -177,3 +177,30 @@ filter:drop-shadow(5px 1px 3px rgba(198, 206, 237, 1));
 	width: 300px;
 	height: 300px;
 }
+
+.has-error {
+    border-color: #dc3545;
+}
+
+.has-error + .invalid-feedback {
+    display: block;
+}
+
+.pass_show{
+    position: relative
+} 
+
+.pass_show .ptxt { 
+    position: absolute; 
+    top: 50%; 
+    right: 10px; 
+    z-index: 1; 
+    color: #f36c01; 
+    margin-top: -10px; 
+    cursor: pointer; 
+    transition: .3s ease all; 
+} 
+
+.pass_show .ptxt:hover{
+    color: #333333;
+} 

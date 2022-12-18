@@ -18,27 +18,18 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav ml-auto align-items-center">
             <li class="nav-item">
-                <a class="nav-link page-scroll" href="#header">HOME <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link page-scroll" href="#intro">DESTINATION</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link page-scroll" href="#blog">BlOG REVIEW</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link page-scroll" href="#voucher">VOUCHER</a>
+                <a class="nav-link page-scroll" href="{{route('user.home')}}">HOME <span class="sr-only">(current)</span></a>
             </li>
 
             <!-- Dropdown Menu -->
             <li class="nav-item dropdown ml-5">
                 <a class="nav-link dropdown-toggle page-scroll" href="#about" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user() ? Auth::user()->name : 'Login' }}</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">My Account</span></a>
+                    <a class="dropdown-item" href="{{route('user.profile.index')}}"><span class="item-text">My Account</span></a>
                     <div class="dropdown-items-divide-hr"></div>
-                    <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">My Blog</span></a>
+                    <a class="dropdown-item" href="{{route('user.blog.show_my_blogs')}}"><span class="item-text">My Blog</span></a>
                     <div class="dropdown-items-divide-hr"></div>
-                    <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">Logout</span></a>
+                    <a class="dropdown-item" href="{{route('user.logout')}}"><span class="item-text">Logout</span></a>
                 </div>
             </li>
             <!-- end of dropdown menu -->

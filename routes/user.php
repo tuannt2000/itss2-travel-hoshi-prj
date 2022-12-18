@@ -7,6 +7,7 @@ use App\Http\Controllers\User\BlogController;
 use App\Http\Controllers\User\CommentController;
 use App\Http\Controllers\User\PlaceController;
 use App\Http\Controllers\User\PlaceFavouriteController;
+use App\Http\Controllers\User\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,7 @@ use App\Http\Controllers\User\PlaceFavouriteController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [AuthController::class, 'auth']);
+Route::get('/', [AuthController::class, 'auth'])->name('auth');
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('signup', [AuthController::class, 'signUp'])->name('signup');
 
@@ -58,4 +59,15 @@ Route::middleware(['role:user'])->group(function () {
         Route::get('like/{place}', [PlaceFavouriteController::class, 'like'])->name('like');
         Route::get('dislike/{place}', [PlaceFavouriteController::class, 'dislike'])->name('dislike');
     });
+
+    Route::group([
+        'prefix' => 'profile',
+        'as' => 'profile.'
+    ], function () {
+        Route::get('/', [ProfileController::class, 'index'])->name('index');
+        Route::post('/', [ProfileController::class, 'edit'])->name('edit');
+        Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('changePassword');
+    });
+
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
