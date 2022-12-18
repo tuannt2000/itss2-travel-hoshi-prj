@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Blog;
 use App\Services\Interfaces\UserBlogVoteService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class BlogController extends Controller
@@ -72,6 +73,7 @@ class BlogController extends Controller
             if ($file = $request->file('file_path')) {
                 $file_path = Carbon::now()->format('Y_m_d') . '_' . $file->store('');
                 $url = "assets/images/blog/" . Str::slug($validated['title']);
+                File::makeDirectory($url, 0777, true, true);
                 $file->move(public_path($url), $file_path);
 
                 $blog->blogImages()->create([
