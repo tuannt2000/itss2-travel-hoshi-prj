@@ -38,7 +38,7 @@
                     <div class="dropdown-items-divide-hr"></div>
                     <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">My Blog</span></a>
                     <div class="dropdown-items-divide-hr"></div>
-                    <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">Logout</span></a>
+                    <a class="dropdown-item" href="{{route('user.logout')}}"><span class="item-text">Logout</span></a>
                 </div>
             </li>
             <!-- end of dropdown menu -->

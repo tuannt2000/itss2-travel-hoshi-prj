@@ -19,7 +19,7 @@ use App\Http\Controllers\User\ProfileController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [AuthController::class, 'auth']);
+Route::get('/', [AuthController::class, 'auth'])->name('auth');
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('signup', [AuthController::class, 'signUp'])->name('signup');
 
@@ -68,4 +68,6 @@ Route::middleware(['role:user'])->group(function () {
         Route::post('/', [ProfileController::class, 'edit'])->name('edit');
         Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('changePassword');
     });
+
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
