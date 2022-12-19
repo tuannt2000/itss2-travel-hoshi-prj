@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('total_votes');
             $table->tinyInteger('season')->nullable();
             $table->integer('price')->nullable();
+            $table->tinyInteger('status')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

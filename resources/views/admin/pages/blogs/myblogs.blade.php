@@ -35,7 +35,9 @@
                                     <td style="width:70%">{{ $blog->title }}</td>
                                     <td>
                                         <a href="{{route('admin.blog.update', ['id' => $blog->id])}}" class="btn btn-success btn-fill mr-2">Update</a>
-                                        <button type="button" id="btn-blog-delete" data-value="{{$blog->id}}" data-toggle="modal" data-target="#delete" class="btn btn-danger">Delete</button>
+                                        <button type="button" id="btn-delete" data-value="{{$blog->id}}" data-toggle="modal" data-target="#blogDelete" class="btn btn-danger">
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -45,6 +47,29 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="blogDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel">Delete blog</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Bạn có chắc chắn muốn xóa blog này ?
+        </div>
+        <form action="{{route('admin.blog.remove')}}" method="post" class="modal-footer d-flex justify-content-end">
+            @csrf
+            <input type="hidden" id="id" name="id" />
+            <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger btn-fill">Delete</button>
+        </form>
+      </div>
     </div>
 </div>
 

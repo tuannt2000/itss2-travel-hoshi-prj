@@ -24,6 +24,7 @@
                             <a href="" class="btn btn-info btn-fill ml-2">Pending blogs</a>
                             <a href="{{route('admin.blog.my')}}" class="btn btn-info">My blog</a>
                         </div>
+                        @if(count($blogs))
                         <table class="table table-hover table-striped">
                             <thead>
                                 <th>Blog</th>
@@ -34,13 +35,20 @@
                                 <tr>
                                     <td style="width:70%">{{ $blog->title }}</td>
                                     <td>
-                                        <button type="button" id="btn-blog-approve" data-value="{{$blog->id}}" data-toggle="modal" data-target="#approve" class="btn btn-success btn-fill mr-2">Approve</button>
-                                        <button type="button" id="blog-delete" data-value="{{$blog->id}}" data-toggle="modal" data-target="#blogDelete" class="btn btn-danger">Delete</button>
+                                        <button type="button" id="btn-blog-approve" data-value="{{$blog->id}}" data-toggle="modal" data-target="#approve" class="btn btn-success btn-fill mr-2">
+                                            <a class="text-white" href="{{route('admin.blog.approve', ['id' => $blog->id])}}">Approve</a>
+                                        </button>
+                                        <button type="button" id="btn-delete" data-value="{{$blog->id}}" data-toggle="modal" data-target="#blogDelete" class="btn btn-danger">
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        @else
+                            <strong class="col-md-12">Không có blog nào chưa được duyệt</strong>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -63,7 +71,7 @@
         </div>
         <form action="{{route('admin.blog.remove')}}" method="post" class="modal-footer d-flex justify-content-end">
             @csrf
-            <input type="hidden" id="blog-id" name="id" />
+            <input type="hidden" id="id" name="id" />
             <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-danger btn-fill">Delete</button>
         </form>

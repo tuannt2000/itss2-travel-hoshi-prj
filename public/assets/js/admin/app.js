@@ -18,7 +18,7 @@ $(document).ready(function($) {
     loadImage();
 
     $('#btn-delete').click(function () {
-        $('#user-id').val($(this).attr('data-value'))
+        $('#id').val($(this).attr('data-value'))
     })
 });
 

@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.dashboard.place.store') }}" autocomplete="off"
+                        <form method="POST" action="{{ route('admin.blog.store') }}" autocomplete="off"
                             enctype="multipart/form-data">
                             @csrf
                             @method('POST')
@@ -47,7 +47,7 @@
                                 <div class="col-sm">
                                     <div class="form-group">
                                         <label class="form-control-label" for="name"><i class="w3-xxlarge fa fa-map mr-1"></i>{{ __('Title') }}</label>
-                                        <input type="text" name="name" id="name" class="form-control" placeholder="{{ __('Name...') }}" value="" required>
+                                        <input type="text" name="title" id="name" class="form-control" placeholder="{{ __('Name...') }}" value="" required>
                                     </div>
 
                                     <div class="form-group">
@@ -57,10 +57,10 @@
 
                                     <div class="form-group">
                                         <label class="form-control-label" for="address"><i class="w3-xxlarge fa fa-map mr-1"></i>{{ __('Address') }}</label>
-                                        <select class="form-control" name="address" id="address">
-                                            <option value="0"></option>
-                                            <option value="Ho Guom">Ho Guom</option>
-                                            <option value="Lang Bac">Lang Bac</option>
+                                        <select class="form-control" name="place_id" id="address">
+                                            @foreach ($places as $place)
+                                            <option value="{{$place->id}}">{{$place->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
@@ -75,7 +75,7 @@
 
                                     <div class="form-group">
                                         <label class="form-control-label" for="cost"><i class="w3-xxlarge fa fa-map mr-1"></i>{{ __('Cost') }}</label>
-                                        <input type="text" name="cost" id="cost" class="form-control" placeholder="{{ __('Cost...') }}" value="" required>
+                                        <input type="text" name="price" id="cost" class="form-control" placeholder="{{ __('Cost...') }}" value="" required>
                                     </div>
                                 </div>
                             </div>

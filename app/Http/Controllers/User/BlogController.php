@@ -7,7 +7,6 @@ use App\Http\Requests\User\Blog\BlogRequest;
 use App\Services\Interfaces\BlogImageService;
 use App\Services\Interfaces\BlogService;
 use App\Services\Interfaces\PlaceService;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -66,7 +65,8 @@ class BlogController extends Controller
                 'content' => $validated['content'],
                 'season' => $validated['season'],
                 'price' => $validated['price'],
-                'total_votes' => 0
+                'total_votes' => 0,
+                'status' => 0
             ]);
 
             if ($file = $request->file('file_path')) {

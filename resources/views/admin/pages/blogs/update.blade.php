@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.dashboard.place.store') }}" autocomplete="off"
+                        <form method="POST" action="{{ route('admin.blog.edit', ['id' => $blog->id]) }}" autocomplete="off"
                             enctype="multipart/form-data">
                             @csrf
                             @method('POST')
@@ -28,7 +28,7 @@
                                             <i class="w3-xxlarge fa fa-photo mr-1"></i>{{ __('Upload Photo') }}
                                         </label>
                                         <div class="block-img">
-                                            <img id="show-img" src="" />
+                                            <img id="show-img" style="display: block" src="{{asset('storage/' . $blog->blogImages[0]->file_path)}}" />
                                         </div>
                                         <div class="text-center justify-content-center d-flex hide" id="load-images">
                                             <div type="" class="btn-custom prev-btn mr-3">
@@ -47,7 +47,7 @@
                                 <div class="col-sm">
                                     <div class="form-group">
                                         <label class="form-control-label" for="name"><i class="w3-xxlarge fa fa-map mr-1"></i>Title</label>
-                                        <input type="text" name="name" id="name" class="form-control" value="{{ $blog->title }}" required>
+                                        <input type="text" name="title" id="name" class="form-control" value="{{ $blog->title }}" required>
                                     </div>
 
                                     <div class="form-group">
@@ -58,25 +58,24 @@
                                     <div class="form-group">
                                         <label class="form-control-label" for="address"><i class="w3-xxlarge fa fa-map mr-1"></i>{{ __('Address') }}</label>
                                         <select class="form-control" name="address" id="address">
-                                            <option value="{{ $blog->place_id }}">{{ $blog->place_id }}</option>
-                                            <option value="Ho Guom">Ho Guom</option>
-                                            <option value="Lang Bac">Lang Bac</option>
+                                            @foreach ($places as $place)
+                                                <option value="{{$place->id}}" {{$place->id == $blog->place_id ? 'selected' : ''}}>{{$place->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="form-control-label" for="season"><i class="w3-xxlarge fa fa-map mr-1"></i>{{ __('Season') }}</label>
                                         <select class="form-control" name="season" id="season">
-                                            <option value="{{ $blog->place_id }}">{{ $blog->season }}</option>
                                             @foreach (Season::cases() as $season)
-                                                <option class="uppercase" value="{{ $season->value }}">{{ $season->name }}</option>
+                                                <option class="uppercase" value="{{ $season->value }}" {{$season->value == $blog->season ? 'selected' : ''}}>{{ $season->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="form-control-label" for="cost"><i class="w3-xxlarge fa fa-map mr-1"></i><option value="{{ $blog->place_id }}">Price</option></label>
-                                        <input type="text" name="cost" id="cost" class="form-control" placeholder="{{ __('Cost...') }}" value="{{ $blog->price }}" required>
+                                        <input type="text" name="price" id="cost" class="form-control" placeholder="{{ __('Cost...') }}" value="{{ $blog->price }}" required>
                                     </div>
                                 </div>
                             </div>

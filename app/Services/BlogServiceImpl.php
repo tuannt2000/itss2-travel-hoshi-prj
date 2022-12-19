@@ -12,4 +12,14 @@ class BlogServiceImpl extends BaseServiceImpl implements BlogService
     {
         $this->model = $blog;
     }
+
+    public function getBlogNotApproved()
+    {
+        return $this->model->where('status', 0)->get();
+    }
+
+    public function getBlogApproved()
+    {
+        return $this->model->where('status', 1)->get();
+    }
 }
