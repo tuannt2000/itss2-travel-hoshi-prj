@@ -17,7 +17,8 @@ class Blog extends Model
         'content',
         'season',
         'price',
-        'total_votes'
+        'total_votes',
+        'status'
     ];
 
     protected $guarded = [];
