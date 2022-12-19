@@ -38,7 +38,7 @@
                     <h3>{{ $blog->title }}</h3>
                     @if (count($blog->blogImages))
                     @foreach ($blog->blogImages as $blogImage)
-                    <img class="pb-4" src="{{asset($blogImage->file_path)}}" />
+                    <img class="pb-4" src="{{asset('storage/' . $blogImage->file_path)}}" />
                     @endforeach
                     @endif
                     <p>{{$blog->content}}</p>
