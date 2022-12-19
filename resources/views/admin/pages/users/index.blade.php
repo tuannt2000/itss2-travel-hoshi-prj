@@ -57,7 +57,7 @@
         </div>
         <form action="{{route('admin.user.remove')}}" method="post" class="modal-footer">
             @csrf
-            <input type="hidden" id="user-id" name="id" />
+            <input type="hidden" id="id" name="id" />
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>

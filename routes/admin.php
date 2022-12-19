@@ -41,13 +41,21 @@ Route::middleware(['role:admin'])->group(function () {
         Route::get('/users', [UserController::class, 'index']);
         Route::post('/remove', [UserController::class, 'delete'])->name('.remove');
     });
+
     Route::group([
         'prefix' => 'blog',
         'as' => 'blog'
     ], function () {
         Route::get('/blogs', [BlogController::class, 'index']);
-        Route::delete('/remove', [BlogController::class, 'delete'])->name('.remove');
+        Route::get('/my', [BlogController::class, 'myblog'])->name('.my');
+        Route::get('/approve/{id}', [BlogController::class, 'approve'])->name('.approve');
+        Route::get('/create', [BlogController::class, 'create'])->name('.create');
+        Route::post('/create', [BlogController::class, 'store'])->name('.store');
+        Route::get('/update/{id}', [BlogController::class, 'update'])->name('.update');
+        Route::post('/update/{id}', [BlogController::class, 'edit'])->name('.edit');
+        Route::post('/remove', [BlogController::class, 'delete'])->name('.remove');
     });
+
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
