@@ -27,9 +27,11 @@ Route::middleware(['role:user'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::group([
         'prefix' => 'place',
-        'as' => 'place'
+        'as' => 'place.'
     ], function () {
-        Route::get('', [PlaceController::class, 'index'])->name('.index');
+        Route::get('', [PlaceController::class, 'index'])->name('index');
+        Route::get('/create', [PlaceController::class, 'create'])->name('create');
+        Route::post('/create', [PlaceController::class, 'store'])->name('store');
     });
     Route::group([
         'prefix' => 'blog',
