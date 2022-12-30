@@ -20,6 +20,9 @@
             <li class="nav-item">
                 <a class="nav-link page-scroll" href="{{route('user.home')}}">HOME <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link page-scroll" href="{{route('user.place.create')}}">CREATE PLACE <span class="sr-only">(current)</span></a>
+            </li>
 
             <!-- Dropdown Menu -->
             <li class="nav-item dropdown ml-5">

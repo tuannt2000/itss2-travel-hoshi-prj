@@ -1,9 +1,6 @@
 @extends('admin.layout.app', ['activePage' => 'dashboard', 'title' => 'Location', 'navName' => 'Location', 'activeButton' => 'laravel'])
 
 @section('content')
-@php
-    use App\Enums\Season;
-@endphp
     <div class="content place-form">
         <div class="container-fluid">
             @include('admin.pages.components.helper.alert')
@@ -59,20 +56,6 @@
                                         <label class="form-control-label" for="content"><i class="w3-xxlarge fa fa-map mr-1"></i>{{ __('Location Description') }}</label>
                                         <textarea name="content" id="content" class="form-control" style="height: 200px" placeholder="{{ __('Description...') }}" value="" required></textarea>
                                     </div>
-
-                                    {{-- <div class="form-group">
-                                        <label class="form-control-label" for="season"><i class="w3-xxlarge fa fa-map mr-1"></i>{{ __('Location Season') }}</label>
-                                        <select class="form-control" name="season" id="season">
-                                            @foreach (Season::cases() as $season)
-                                                <option class="uppercase" value="{{ $season->value }}">{{ $season->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="cost"><i class="w3-xxlarge fa fa-map mr-1"></i>{{ __('Location Cost') }}</label>
-                                        <input type="text" name="cost" id="cost" class="form-control" placeholder="{{ __('Cost...') }}" value="" required>
-                                    </div> --}}
                                 </div>
                             </div>
                             <div class="text-center">
@@ -92,9 +75,4 @@
 
 @section('js')
     <script src="{{asset('assets/js/admin/dashboard/create_place.js')}}"></script>
-    <script>
-        $(function() {
-
-        })
-    </script>
 @endsection
