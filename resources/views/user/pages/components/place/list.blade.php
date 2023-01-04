@@ -2,7 +2,7 @@
 {!! app('request')->input('query')? null : $places->links('user.pages.components.helper.paginate') !!}
 @foreach ($places as $place)
     <div class="place-item">
-        <a href="{{route('user.place.index', ['address' => urlencode($place->address)])}}" class="image-container place-item__img">
+        <a href="{{route('user.place.index', ['place' => urlencode($place->name)])}}" class="image-container place-item__img">
             <img class="img-fluid" src="{{ count($place->placeImages) ? asset('storage/' . $place->placeImages[0]->file_path) : '' }} " alt="no file">
         </a>
         <div class="place-item-content">
