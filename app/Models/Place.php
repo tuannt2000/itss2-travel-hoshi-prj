@@ -12,8 +12,7 @@ class Place extends Model
         'name',
         'address',
         'content',
-        'season',
-        'cost'
+        'user_id'
     ];
 
     protected $guarded = [];
