@@ -14,6 +14,7 @@
 <!-- end of header -->
 
 @section('section')
+@include('user.pages.components.helper.alert_4')
 <!-- Intro -->
 <div id="intro" class="basic-1">
     <form class="container user-place-search" action="">

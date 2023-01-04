@@ -3,4 +3,6 @@ $(document).ready(function() {
         $('#profile-info').addClass('d-none');
         $('#profile-edit').removeClass('d-none');
     })
+
+    $('[data-toggle="tooltip"]').tooltip()
 });
