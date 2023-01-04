@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Place;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -67,6 +68,7 @@ class DashboardController extends Controller
                 'name' => $validated['name'],
                 'address' => $validated['address'],
                 'content' => $validated['content'],
+                'user_id' => Auth::user()->id
             ]);
 
             if($files = $request->file('file_path')){
