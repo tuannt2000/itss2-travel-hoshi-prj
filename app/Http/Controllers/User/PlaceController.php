@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class PlaceController extends Controller
 {
@@ -59,6 +60,7 @@ class PlaceController extends Controller
                 'name' => $validated['name'],
                 'address' => $validated['address'],
                 'content' => $validated['content'],
+                'user_id' => Auth::user()->id
             ]);
 
             if($files = $request->file('file_path')){
