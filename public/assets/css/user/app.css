@@ -1,9 +1,6 @@
 a {
     text-decoration: none;
 }
-.navbar-custom .navbar-brand.logo-image img {
-    /* width: 100%; */
-}
 
 .navbar-custom .navbar-brand {
     font-size: 20px;
@@ -207,4 +204,13 @@ filter:drop-shadow(5px 1px 3px rgba(198, 206, 237, 1));
 
 .hide {
     display: none !important;
+}
+
+.icon-edit {
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.place-item:hover .icon-edit {
+    display: block !important;
 }

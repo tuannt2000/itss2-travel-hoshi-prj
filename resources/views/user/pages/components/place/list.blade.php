@@ -12,6 +12,9 @@
                     <i class="fas fa-heart"></i>
                     <span>{{ $place->countLikes() }}</span>
                 </div>
+                <a href="{{route('user.place.edit', ['id' => $place->id])}}" class="icon-edit d-none" data-toggle="tooltip" data-placement="bottom" title="Update">
+                    <i class="fa fa-edit"></i>
+                </a>
             </div>
             <div class="place-item-content__address mb-2">
                 <i class="fas fa-map-marker-alt"></i>
