@@ -34,6 +34,8 @@ Route::middleware(['role:user'])->group(function () {
         Route::post('/create', [PlaceController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [PlaceController::class, 'edit'])->name('edit');
         Route::post('/edit/{id}', [PlaceController::class, 'update'])->name('update');
+        Route::get('my', [PlaceController::class, 'showMyPlaces'])->name('show_my_places');
+        Route::get('/remove/{place}', [PlaceController::class, 'delete'])->name('remove');
     });
     Route::group([
         'prefix' => 'blog',

@@ -30,6 +30,8 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{route('user.profile.index')}}"><span class="item-text">My Account</span></a>
                     <div class="dropdown-items-divide-hr"></div>
+                    <a class="dropdown-item" href="{{route('user.place.show_my_places')}}"><span class="item-text">My Place</span></a>
+                    <div class="dropdown-items-divide-hr"></div>
                     <a class="dropdown-item" href="{{route('user.blog.show_my_blogs')}}"><span class="item-text">My Blog</span></a>
                     <div class="dropdown-items-divide-hr"></div>
                     <a class="dropdown-item" href="{{route('user.logout')}}"><span class="item-text">Logout</span></a>

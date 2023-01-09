@@ -44,4 +44,9 @@ class Place extends Model
     {
         return $this->userPlaceFavourites()->count();
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -59,12 +59,18 @@ class User extends Authenticatable
             $user->userBlogFavourites()->delete();
             $user->userBlogVotes()->delete();
             $user->userBlogComments()->delete();
+            $user->places()->delete();
         });
     }
 
     public function blogs()
     {
         return $this->hasMany(Blog::class);
+    }
+
+    public function places()
+    {
+        return $this->hasMany(Place::class);
     }
 
     public function userPlaceFavourites()
