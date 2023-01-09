@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class BlogController extends Controller
 {
@@ -127,8 +128,18 @@ class BlogController extends Controller
 
     public function delete(Request $request)
     {
-        if ($this->blogService->delete($request->id)) {
+        DB::beginTransaction();
+        try {
+            $url = "storage/images/" . Str::slug($this->blogService->find($request->id)->title);
+            $file_path = public_path($url);
+            File::deleteDirectory($file_path);
+            $this->blogService->delete($request->id);
+
+            DB::commit();
             return redirect()->route('admin.blog')->with('success', 'Delete success');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
         }
 
         return back()->with('error', 'Delete failed!');
