@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1> Create place </h1>
+                <h1> Update place </h1>
             </div> <!-- end of col -->
         </div> <!-- end of row -->
     </div> <!-- end of container -->
@@ -37,10 +37,17 @@
                             <div class="col-sm">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-name">
-                                        <i class="w3-xxlarge fa fa-photo mr-1"></i>{{ __('Place Image') }}
+                                        <i class="w3-xxlarge fa fa-photo mr-1"></i>{{ __('Place Image or Video') }}
                                     </label>
                                     <div class="block-img">
-                                        <img id="show-img" style="display: block !important" src="{{count($place->placeImages) ? asset('storage/' . $place->placeImages[0]->file_path) : ''}}" />
+                                        @if (count($place->placeImages) && explode('/', $place->placeImages[0]->file_path)[0] == 'videos')
+                                        <img id="show-img" src="" alt="" />
+                                        <video controls id="show-video" src="{{asset('storage/' . $place->placeImages[0]->file_path)}} "></video>
+                                        @else
+                                        <img id="show-img" style="display: block" src="{{asset('storage/' . $place->placeImages[0]->file_path)}}" />
+                                        <video controls class="d-none" id="show-video" src=""></video>
+                                        @endif
+                                        
                                     </div>
                                     <div class="text-center justify-content-center d-flex hide" id="load-images">
                                         <button type="button" style="cursor: pointer" class="btn-custom prev-btn mr-3">
@@ -50,9 +57,9 @@
                                             Next
                                         </button>
                                     </div>
-                                    <input type="button" value="{{__('Choose image')}}" id="choose-image" />
-                                    <input type="button" value="{{__('Remove image')}}" id="remove-image" class="hide"/>
-                                    <input type="file" multiple accept="image/png, image/jpeg" class="form-control hide" id="image" name="file_path[]"/>
+                                    <input type="button" value="{{__('Choose image or video')}}" id="choose-image" />
+                                    <input type="button" value="{{__('Remove')}}" id="remove-image" class="hide"/>
+                                    <input type="file" multiple accept="image/png, image/jpeg, video/mp4,video/x-m4v,video/*" class="form-control hide" id="image" name="file_path[]"/>
                                 </div>
                             </div>
 
@@ -94,6 +101,7 @@
 @endsection
 
 @section('js')
+    <script src="{{asset('assets/js/user/place/edit_place.js')}}"></script>
     <script src="{{asset('assets/js/user/place/create_place.js')}}"></script>
 @endsection
 

@@ -3,7 +3,11 @@
 @foreach ($places as $place)
     <div class="place-item">
         <a href="{{route('user.place.index', ['place' => urlencode($place->name)])}}" class="image-container place-item__img">
-            <img class="img-fluid" src="{{ count($place->placeImages) ? asset('storage/' . $place->placeImages[0]->file_path) : '' }} " alt="no file">
+            @if (count($place->placeImages) && explode('/', $place->placeImages[0]->file_path)[0] == 'videos')
+            <video autoplay loop class="img-fluid" src="{{ asset('storage/' . $place->placeImages[0]->file_path) }} "></video>
+            @elseif (count($place->placeImages))
+            <img class="img-fluid" src="{{ asset('storage/' . $place->placeImages[0]->file_path) }} " alt="no file" />
+            @endif
         </a>
         <div class="place-item-content">
             <div class="d-flex">

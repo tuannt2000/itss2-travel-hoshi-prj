@@ -121,3 +121,7 @@
 
 @include('user.pages.components.blog.create_form')
 @endsection
+
+@section('js')
+    <script src="{{asset('assets/js/user/place/index.js')}}"></script>
+@endsection

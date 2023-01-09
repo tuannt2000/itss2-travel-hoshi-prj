@@ -37,10 +37,11 @@
                             <div class="col-sm">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-name">
-                                        <i class="w3-xxlarge fa fa-photo mr-1"></i>{{ __('Place Image') }}
+                                        <i class="w3-xxlarge fa fa-photo mr-1"></i>{{ __('Place Image or Video') }}
                                     </label>
                                     <div class="block-img">
                                         <img id="show-img" src="" />
+                                        <video src="" class="d-none" id="show-video" controls></video>
                                     </div>
                                     <div class="text-center justify-content-center d-flex hide" id="load-images">
                                         <button type="button" style="cursor: pointer" class="btn-custom prev-btn mr-3">
@@ -50,9 +51,9 @@
                                             Next
                                         </button>
                                     </div>
-                                    <input type="button" value="{{__('Choose image')}}" id="choose-image" />
-                                    <input type="button" value="{{__('Remove image')}}" id="remove-image" class="hide"/>
-                                    <input type="file" multiple accept="image/png, image/jpeg" class="form-control hide" id="image" name="file_path[]"/>
+                                    <input type="button" value="{{__('Choose image or Video')}}" id="choose-image" />
+                                    <input type="button" value="{{__('Remove')}}" id="remove-image" class="hide"/>
+                                    <input type="file" multiple accept="image/png, image/jpeg, video/mp4,video/x-m4v,video/*" class="form-control hide" id="image" name="file_path[]"/>
                                 </div>
                             </div>
 

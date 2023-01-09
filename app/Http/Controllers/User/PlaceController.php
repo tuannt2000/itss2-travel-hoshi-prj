@@ -65,7 +65,12 @@ class PlaceController extends Controller
 
             if($files = $request->file('file_path')){
                 foreach($files as $file){
-                    $file_path = $file->store('public/images/place/' . Str::slug($validated['name']));
+                    $mime = $file->getMimeType();
+                    if(strstr($mime, "video/")){
+                        $file_path = $file->store('public/videos/place/' . Str::slug($validated['name']));
+                    }else {
+                        $file_path = $file->store('public/images/place/' . Str::slug($validated['name']));
+                    }
 
                     $place->placeImages()->create([
                         'file_path' => explode("public/", $file_path)[1]
@@ -115,7 +120,12 @@ class PlaceController extends Controller
             if($files = $request->file('file_path')){
                 $place->placeImages()->delete();
                 foreach($files as $file){
-                    $file_path = $file->store('public/images/place/' . Str::slug($validated['name']));
+                    $mime = $file->getMimeType();
+                    if(strstr($mime, "video/")){
+                        $file_path = $file->store('public/videos/place/' . Str::slug($validated['name']));
+                    }else {
+                        $file_path = $file->store('public/images/place/' . Str::slug($validated['name']));
+                    }
 
                     $place->placeImages()->create([
                         'file_path' => explode("public/", $file_path)[1]
