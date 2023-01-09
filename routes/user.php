@@ -46,6 +46,7 @@ Route::middleware(['role:user'])->group(function () {
         Route::post('detail/vote', [BlogController::class, 'vote'])->name('vote');
         Route::get('place/{id}', [BlogController::class, 'showByPlace'])->name('show_by_place');
         Route::get('my', [BlogController::class, 'showMyBlogs'])->name('show_my_blogs');
+        Route::post('/favourite/delete/{id}', [BlogController::class, 'deleteBlogFavourite'])->name('delete');
     });
 
     Route::group([
