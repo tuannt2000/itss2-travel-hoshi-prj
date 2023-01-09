@@ -6,6 +6,7 @@ use App\Helper\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Place\PlaceRequest;
 use App\Services\Interfaces\PlaceService;
+use App\Models\Place;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -44,7 +45,7 @@ class PlaceController extends Controller
         } catch (\Exception $e) {
             Log::error($e);
         }
-       
+
         return view('user.pages.place.create', compact('addresses'));
     }
 
@@ -96,8 +97,13 @@ class PlaceController extends Controller
         } catch (\Exception $e) {
             Log::error($e);
         }
-       
+
         return view('user.pages.place.edit', compact('place', 'addresses'));
+    }
+
+    public function showMyPlaces() {
+        $places = Auth::user()->places;
+        return view('user.pages.place.my', compact('places'));
     }
 
     public function update(PlaceRequest $request, $id)
@@ -130,5 +136,13 @@ class PlaceController extends Controller
         }
 
         return back()->with('error', 'Update place failed!');
+    }
+
+    public function delete(Place $place)
+    {
+        if ($this->placeService->delete($place->id)) {
+            return redirect()->route('user.place.show_my_places')->with('success', 'Delete success');
+        }
+        return back()->with('error', 'Delete failed!');
     }
 }
