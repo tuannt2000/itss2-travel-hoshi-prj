@@ -7,18 +7,31 @@ $(document).ready(function($) {
     $('#image').change(function() {
         files = this.files;
         const file = this.files[0];
-        showImage(file)
+        const fileType = file['type'];
+        const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+        if (validImageTypes.includes(fileType)) {
+            showImage(file)
+            $('#show-img').css('display', 'block');
+        } else {
+            showVideo(file)
+            $('#show-video').removeClass('d-none');
+        }
 
         $('#remove-image').removeClass('hide')
         $('#choose-image').addClass('hide')
         $('#load-images').removeClass('hide')
-        $('#show-img').css('display', 'block');
     })
 
     $('#remove-image').click(function() {
         $('#image').val('')
+        // set src img
         $('#show-img').css('display', 'none');
         $('#show-img').attr('src', '');
+        
+        // set src video
+        $('#show-video').addClass('d-none');
+        $('#show-video').attr('src', '');
+
         $('#choose-image').removeClass('hide')
         $('#load-images').addClass('hide')
         $(this).addClass('hide')
@@ -55,5 +68,13 @@ function showImage (file) {
             $('#show-img').attr('src', event.target.result);
         }
         reader.readAsDataURL(file);
+    }
+}
+
+function showVideo (file) {
+    if (file){
+        var video = $('#show-video');
+        console.log(video);
+        video[0].src = URL.createObjectURL(file);
     }
 }
