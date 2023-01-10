@@ -6,12 +6,14 @@ use App\Helper\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Place\PlaceRequest;
 use App\Services\Interfaces\PlaceService;
+use App\Models\Place;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class PlaceController extends Controller
 {
@@ -44,7 +46,7 @@ class PlaceController extends Controller
         } catch (\Exception $e) {
             Log::error($e);
         }
-       
+
         return view('user.pages.place.create', compact('addresses'));
     }
 
@@ -65,7 +67,12 @@ class PlaceController extends Controller
 
             if($files = $request->file('file_path')){
                 foreach($files as $file){
-                    $file_path = $file->store('public/images/place/' . Str::slug($validated['name']));
+                    $mime = $file->getMimeType();
+                    if(strstr($mime, "video/")){
+                        $file_path = $file->store('public/videos/place/' . Str::slug($validated['name']));
+                    }else {
+                        $file_path = $file->store('public/images/place/' . Str::slug($validated['name']));
+                    }
 
                     $place->placeImages()->create([
                         'file_path' => explode("public/", $file_path)[1]
@@ -96,8 +103,13 @@ class PlaceController extends Controller
         } catch (\Exception $e) {
             Log::error($e);
         }
-       
+
         return view('user.pages.place.edit', compact('place', 'addresses'));
+    }
+
+    public function showMyPlaces() {
+        $places = Auth::user()->places;
+        return view('user.pages.place.my', compact('places'));
     }
 
     public function update(PlaceRequest $request, $id)
@@ -115,7 +127,12 @@ class PlaceController extends Controller
             if($files = $request->file('file_path')){
                 $place->placeImages()->delete();
                 foreach($files as $file){
-                    $file_path = $file->store('public/images/place/' . Str::slug($validated['name']));
+                    $mime = $file->getMimeType();
+                    if(strstr($mime, "video/")){
+                        $file_path = $file->store('public/videos/place/' . Str::slug($validated['name']));
+                    }else {
+                        $file_path = $file->store('public/images/place/' . Str::slug($validated['name']));
+                    }
 
                     $place->placeImages()->create([
                         'file_path' => explode("public/", $file_path)[1]
@@ -130,5 +147,27 @@ class PlaceController extends Controller
         }
 
         return back()->with('error', 'Update place failed!');
+    }
+
+    public function delete(Place $place)
+    {
+        DB::beginTransaction();
+        try {
+            foreach($place->placeImages as $place_image) {
+                $exploded = explode('/', $place_image->file_path);
+                $exploded_pos = strpos($place_image->file_path, end($exploded));
+                $url = "storage/" . substr($place_image->file_path, 0, $exploded_pos);
+                $file_path = public_path($url);
+                File::deleteDirectory($file_path);
+            }
+            $this->placeService->delete($place->id);
+
+            DB::commit();
+            return redirect()->route('user.place.show_my_places')->with('success', 'Delete success');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+        }
+        return back()->with('error', 'Delete failed!');
     }
 }

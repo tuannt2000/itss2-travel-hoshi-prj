@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\Blog;
+use App\Services\Interfaces\UserBlogFavouriteService;
 use App\Services\Interfaces\UserBlogVoteService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class BlogController extends Controller
 {
@@ -21,13 +23,15 @@ class BlogController extends Controller
     protected $blogImageService;
     protected $placeService;
     protected $userBlogVote;
+    protected $userBlogFavourite;
 
-    public function __construct(BlogService $blogService, BlogImageService $blogImageService, PlaceService $placeService, UserBlogVoteService $userBlogVote)
+    public function __construct(BlogService $blogService, BlogImageService $blogImageService, PlaceService $placeService, UserBlogVoteService $userBlogVote, UserBlogFavouriteService $userBlogFavourite)
     {
         $this->blogService = $blogService;
         $this->blogImageService = $blogImageService;
         $this->placeService = $placeService;
         $this->userBlogVote = $userBlogVote;
+        $this->userBlogFavourite = $userBlogFavourite;
     }
 
     public function index()
@@ -89,13 +93,23 @@ class BlogController extends Controller
 
     public function delete(Blog $blog)
     {
-        if ($this->authorize('delete', $blog)) {
-            if ($this->blogService->delete($blog->id)) {
-                return redirect()->route('user.place.index')->with('success', 'Delete success');
-            }
-            return back()->with('error', 'Delete failed!');
-        } else abort(403);
+        DB::beginTransaction();
+        try {
+            $url = "storage/images/" . Str::slug($this->blogService->find($blog->id)->title);
+            $file_path = public_path($url);
+            File::deleteDirectory($file_path);
+            if ($this->authorize('delete', $blog)) {
+                $this->blogService->delete($blog->id);
+            };
 
+            DB::commit();
+            return redirect()->route('user.place.index')->with('success', 'Delete success');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+        }
+
+        return back()->with('error', 'Delete failed!');
     }
 
     public function showMyBlogs() {
@@ -135,5 +149,13 @@ class BlogController extends Controller
         return response()->json([
             'message' => 'Không hỗ trợ method này'
         ]);
+    }
+
+    public function deleteBlogFavourite($id = null) {
+        if ($this->userBlogFavourite->delete($id)) {
+            return redirect()->route('user.home')->with('success', 'Delete success');
+        }
+
+        return back()->with('error', 'Delete failed!');
     }
 }
