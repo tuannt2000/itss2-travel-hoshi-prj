@@ -122,9 +122,14 @@ class DashboardController extends Controller
     {
         DB::beginTransaction();
         try {
-            $url = "storage/images/place/" . Str::slug($this->placeService->find($id)->name);
-            $file_path = public_path($url);
-            File::deleteDirectory($file_path);
+            $place = $this->placeService->find($id);
+            foreach($place->placeImages as $place_image) {
+                $exploded = explode('/', $place_image->file_path);
+                $exploded_pos = strpos($place_image->file_path, end($exploded));
+                $url = "storage/" . substr($place_image->file_path, 0, $exploded_pos);
+                $file_path = public_path($url);
+                File::deleteDirectory($file_path);
+            }
             $this->placeService->delete($id);
 
             DB::commit();
