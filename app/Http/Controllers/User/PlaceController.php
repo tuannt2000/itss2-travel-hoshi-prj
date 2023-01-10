@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class PlaceController extends Controller
 {
@@ -150,8 +151,22 @@ class PlaceController extends Controller
 
     public function delete(Place $place)
     {
-        if ($this->placeService->delete($place->id)) {
+        // if ($this->placeService->delete($place->id)) {
+        //     return redirect()->route('user.place.show_my_places')->with('success', 'Delete success');
+        // }
+        // return back()->with('error', 'Delete failed!');
+        DB::beginTransaction();
+        try {
+            $url = "assets/images/place/" . Str::slug($place->address) . '/' . Str::slug($place->name);
+            $file_path = public_path($url);
+            File::deleteDirectory($file_path);
+            $this->placeService->delete($place->id);
+
+            DB::commit();
             return redirect()->route('user.place.show_my_places')->with('success', 'Delete success');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e);
         }
         return back()->with('error', 'Delete failed!');
     }
