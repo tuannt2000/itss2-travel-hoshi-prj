@@ -151,15 +151,15 @@ class PlaceController extends Controller
 
     public function delete(Place $place)
     {
-        // if ($this->placeService->delete($place->id)) {
-        //     return redirect()->route('user.place.show_my_places')->with('success', 'Delete success');
-        // }
-        // return back()->with('error', 'Delete failed!');
         DB::beginTransaction();
         try {
-            $url = "assets/images/place/" . Str::slug($place->address) . '/' . Str::slug($place->name);
-            $file_path = public_path($url);
-            File::deleteDirectory($file_path);
+            foreach($place->placeImages as $place_image) {
+                $exploded = explode('/', $place_image->file_path);
+                $exploded_pos = strpos($place_image->file_path, end($exploded));
+                $url = "storage/" . substr($place_image->file_path, 0, $exploded_pos);
+                $file_path = public_path($url);
+                File::deleteDirectory($file_path);
+            }
             $this->placeService->delete($place->id);
 
             DB::commit();
