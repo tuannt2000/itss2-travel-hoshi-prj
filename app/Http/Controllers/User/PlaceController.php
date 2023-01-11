@@ -52,6 +52,8 @@ class PlaceController extends Controller
 
     public function store(PlaceRequest $request)
     {
+        ini_set('upload_max_filesize', '100M');
+        ini_set('post_max_size', '100M');
         if (!$request->file('file_path')) {
             return back()->with('error', ' create new place failed!');
         }
