@@ -91,4 +91,10 @@ class BlogPolicy
     // {
     //     //
     // }
+
+    public function likeBlog(User $user, Blog $blog )
+    {
+        return $user->likedBlog($blog) ? false : true;
+
+    }
 }

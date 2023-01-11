@@ -68,6 +68,11 @@ class User extends Authenticatable
         return $this->hasMany(Blog::class);
     }
 
+    public function likedBlogs()
+    {
+        return $this->belongsToMany(Blog::class, 'user_blog_favourites');
+    }
+
     public function places()
     {
         return $this->hasMany(Place::class);
@@ -101,5 +106,10 @@ class User extends Authenticatable
     public function liked(Place $place)
     {
         return $this->userPlaceFavourites()->where('place_id', '=', $place->id)->first();
+    }
+
+    public function likedBlog(Blog $blog)
+    {
+        return $this->userBlogFavourites()->where('blog_id', '=', $blog->id)->first();
     }
 }
