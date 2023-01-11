@@ -17,7 +17,6 @@ return new class extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('blog_id');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

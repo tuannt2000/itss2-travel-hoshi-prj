@@ -118,6 +118,13 @@ class BlogController extends Controller
         return view('user.pages.blog.my', compact('blogs'));
     }
 
+    public function showLikeBlogs() {
+        $user = Auth::user();
+        $blogs = $user->likedBlogs;
+        // dd($blogs);
+        return view('user.pages.blog.like', compact('blogs'));
+    }
+
     public function vote(Request $request) {
         if ($request->ajax()) {
             $userBlogVote = $this->userBlogVote->getBlogVote($request->blog_id, Auth::user()->id);

@@ -35,6 +35,12 @@
                         </a>
                     </div>
                     @endif
+                    <div class="d-flex align-items-center ml-3 favorite-action">
+                        <span>Do you love this blog?</span>
+                        {{-- {{dd(Auth::user()->can('likedBlog', $blog))}} --}}
+                        <a href="{{ Auth::user()->can('likedBlog', $blog) ? route('user.favourite.like_blog', ['blog' => $blog]) : route('user.favourite.dislike_blog', ['blog' => $blog])}}" class="btn favorite-action__btn {{ Auth::user()->can('likeBlog', $blog) ? '' : 'liked'}}" type="submit" data-toggle="tooltip" data-placement="top" title="{{ Auth::user()->can('likeBLog', $blog)? 'Like' : 'Dislike'}}"><i class="fas fa-heart"></i></a>
+                    </div>
+                    {{-- {{dd(Auth::user()->can('likedBlog', $blog))}} --}}
                     <h3>{{ $blog->title }}</h3>
                     @if (count($blog->blogImages))
                     @foreach ($blog->blogImages as $blogImage)
