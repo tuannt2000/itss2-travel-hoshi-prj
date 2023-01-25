@@ -3,10 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Supports\Helper;
 use App\Services;
 use App\Services\Interfaces;
-use Illuminate\Foundation\AliasLoader;
+
 class AppServiceProvider extends ServiceProvider
 {
 
@@ -21,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
         Interfaces\UserBlogFavouriteService::class => Services\UserBlogFavouriteServiceImpl::class,
         Interfaces\UserBlogVoteService::class => Services\UserBlogVoteServiceImpl::class,
         Interfaces\UserPlaceFavouriteService::class => Services\UserPlaceFavouriteServiceImpl::class,
-
+        Interfaces\UserPlaceVoteService::class => Services\UserPlaceVoteServiceImpl::class,
     ];
     /**
      * Register any application services.

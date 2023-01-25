@@ -73,7 +73,25 @@
     </div> <!-- end of container -->
 </div> <!-- end of slider -->
 <!-- end of testimonials -->
-
+<div class="container text-container">
+    <input type="hidden" name="place_id" id="place_id" value="{{$place->id}}">
+    <h5>What do you think about this place? </h5>
+    <div class="blog-rating vote container-wrapper">
+        <div class="container d-flex align-items-center justify-content-begin my-4">
+            <div class="row justify-content-center">
+                <!-- star rating -->
+                <div class="rating-wrapper">
+                    @for ($i = 5; $i >= 1; $i--)
+                    <input type="radio" id="{{$i}}-star-rating" name="star-rating" {{$userPlaceVote && $userPlaceVote->vote == $i ? 'checked' : ''}} value="{{$i}}">
+                    <label for="{{$i}}-star-rating" class="star-rating">
+                        <i class="fas fa-star d-inline-block"></i>
+                    </label>
+                    @endfor
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="blog" class="basic-1 pt-5">
     <div class="container blog-list">
         @include('user.pages.components.helper.alert')

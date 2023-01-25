@@ -26,6 +26,15 @@
                 <i class="fas fa-map-marker-alt"></i>
                 <span>{{ $place->address }}</span>
             </div>
+            <div class="text-container rating d-flex align-items-center mb-2">
+                <h5 class="mr-2 mb-0">Rating: </h5>
+                <span class="mr-5">
+                    {{ $place->getRating() ?? 0 }}/
+                    @for ($i = 0; $i < 5; $i++)
+                        <i class="fas fa-star mr-1 d-inline-block checked"></i>
+                    @endfor
+                </span>
+            </div>   
             <p class="place-item-content__desc">{{ $place->content }}</p>
         </div>
     </div>

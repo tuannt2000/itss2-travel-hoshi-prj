@@ -40,7 +40,7 @@ class PlaceServiceImpl extends BaseServiceImpl implements PlaceService
 
     public function search($data = []) {
         $address = $data['address'] ?? null;
-        $season = $data['season'] ?? 0;
+        $month = $data['month'] ?? 0;
         $price = $data['price'] ?? null;
         $places = $this->model
             ->distinct()
@@ -53,11 +53,11 @@ class PlaceServiceImpl extends BaseServiceImpl implements PlaceService
                     ->orWhere('places.name', 'like', '%' . $address . '%');
             });
 
-        if ($season != 0 || !is_null($price)) {
+        if ($month != 0 || !is_null($price)) {
             $places = $places->join('blogs', 'blogs.place_id', '=', 'places.id');
 
-            if ($season != 0) {
-                $places = $places->where('blogs.season', $season);
+            if ($month != 0) {
+                $places = $places->where('blogs.season', ceil((int)$month/3));
             }
 
             if (!is_null($price)) {
