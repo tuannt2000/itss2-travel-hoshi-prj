@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Place\PlaceRequest;
 use App\Services\Interfaces\PlaceService;
 use App\Models\Place;
+use App\Services\Interfaces\UserPlaceVoteService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -18,10 +19,12 @@ use Illuminate\Support\Facades\File;
 class PlaceController extends Controller
 {
     protected $placeService;
+    protected $userPlaceVoteService;
 
-    public function __construct(PlaceService $placeService)
+    public function __construct(PlaceService $placeService, UserPlaceVoteService $userPlaceVoteService)
     {
         $this->placeService = $placeService;
+        $this->userPlaceVoteService = $userPlaceVoteService;
     }
 
     public function index(Request $request)
@@ -29,8 +32,9 @@ class PlaceController extends Controller
         $place_request = urldecode($request->query('place')) ?? null;
         $place = $this->placeService->getPlaceByname($place_request);
         $blogs = $place->blogs;
+        $userPlaceVote = $this->userPlaceVoteService->getPlaceVote($place->id, Auth::user()->id);
 
-        return view('user.pages.place.index', compact('place', 'blogs'));
+        return view('user.pages.place.index', compact('place', 'blogs', 'userPlaceVote'));
     }
 
     public function create()
@@ -169,5 +173,38 @@ class PlaceController extends Controller
             Log::error($e);
         }
         return back()->with('error', 'Delete failed!');
+    }
+
+    public function vote(Request $request) {
+        if ($request->ajax()) {
+            $userPlaceVote = $this->userPlaceVoteService->getPlaceVote($request->place_id, Auth::user()->id);
+            $data = [
+                'vote' => $request->vote
+            ];
+
+            if ($userPlaceVote) {
+                if ($userPlaceVote->update($data)) {
+                    return response()->json([
+                        'message' => 'Update vote thành công'
+                    ]);
+                }
+            } else {
+                $data['place_id'] = $request->place_id;
+                $data['user_id'] = Auth::user()->id;
+                if ($this->userPlaceVoteService->create($data)) {
+                    return response()->json([
+                        'message' => 'Vote thành công'
+                    ]);
+                }
+            }
+
+            return response()->json([
+                'message' => 'Vote thất bại'
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Không hỗ trợ method này'
+        ]);
     }
 }

@@ -24,12 +24,12 @@
                 <input type="text" class="form-control" id="address" name="address" value="{{$address ?? ''}}" placeholder="Where do you want to go?">
             </div>
             <div class="form-group col-md-2">
-                <label for="season">Season</label>
-                <select id="season" name="season" class="form-control">
-                    <option value="0">Season...</option>
-                    @foreach (Season::cases() as $season_select)
-                        <option class="uppercase" {{ $season == $season_select->value ? 'selected' : '' }} value="{{ $season_select->value }}">{{ $season_select->name }}</option>
-                    @endforeach
+                <label for="season">Month</label>
+                <select id="month" name="month" class="form-control">
+                    <option class="uppercase" value="0" >Month...</option>
+                    @for ($i = 1; $i <= 12; $i++)
+                        <option class="uppercase" value="{{ $i }}">{{ $i }}</option>
+                    @endfor
                 </select>
             </div>
             <div class="form-group col-md-3">
