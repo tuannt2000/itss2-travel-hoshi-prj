@@ -52,6 +52,11 @@ class Place extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function placetags()
+    {
+        return $this->hasMany(PlaceTag::class);
+    }
+
     public function userPlaceVotes()
     {
         return $this->hasMany(UserPlaceVote::class);

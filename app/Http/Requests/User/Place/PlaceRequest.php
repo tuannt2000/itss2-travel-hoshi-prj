@@ -29,6 +29,7 @@ class PlaceRequest extends FormRequest
             'address' => 'required|max:255',
             'content' => 'required',
             'file_path.*' => 'required',
+            'tag' => ''
         ];
     }
 

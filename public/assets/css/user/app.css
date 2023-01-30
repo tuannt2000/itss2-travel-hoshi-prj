@@ -214,3 +214,33 @@ filter:drop-shadow(5px 1px 3px rgba(198, 206, 237, 1));
 .place-item:hover .icon-edit {
     display: block !important;
 }
+
+.image-container.place-item__img {
+    height: 150px;
+}
+
+.image-container.place-item__img img {
+    height: 100%;
+}
+
+.tag-main {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    padding: 10px;
+    column-gap: 10px;
+    row-gap: 20px;
+}
+
+.tag-label {
+    width: 70%;
+    margin: auto;
+    border: solid 1px #333333;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.tag-label.active {
+    background-color: #f36c01;
+    color: #fff;
+}
