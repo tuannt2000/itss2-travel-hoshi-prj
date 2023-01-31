@@ -32,4 +32,25 @@ $(document).ready(function($) {
     $('form').submit(function() {
         $(".d-content textarea").val($("#content").text())
     });
+
+    $('.star-rating').click(function(){
+        insertVote($('#' + $(this).attr('for')).val())
+    });
 });
+
+function insertVote (numverStar) {
+    $.ajax({
+        url: 'place/vote',
+        type: "post",
+        datatype: "html",
+        headers: {'X-CSRF-TOKEN': $('[name="_token"]').val()},
+        data: {
+            place_id: $("#place_id").val(),
+            vote: numverStar
+        }
+    }).done(function(data){
+        alert('Vote thành công')
+    }).fail(function(jqXHR, ajaxOptions, thrownError){
+        alert('No response from server');
+    });
+}

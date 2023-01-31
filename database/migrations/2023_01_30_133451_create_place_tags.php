@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_blog_favourites', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('blog_id');
+        Schema::create('place_tags', function (Blueprint $table) {
+            $table->integer('place_id');
+            $table->integer('tag_id');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_blog_favourites');
+        Schema::dropIfExists('place_tags');
     }
 };

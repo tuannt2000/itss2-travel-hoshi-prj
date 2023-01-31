@@ -34,6 +34,8 @@
                     <div class="dropdown-items-divide-hr"></div>
                     <a class="dropdown-item" href="{{route('user.blog.show_my_blogs')}}"><span class="item-text">My Blog</span></a>
                     <div class="dropdown-items-divide-hr"></div>
+                    <a class="dropdown-item" href="{{route('user.blog.show_like_blogs')}}"><span class="item-text">My Favourite Blog</span></a>
+                    <div class="dropdown-items-divide-hr"></div>
                     <a class="dropdown-item" href="{{route('user.logout')}}"><span class="item-text">Logout</span></a>
                 </div>
             </li>

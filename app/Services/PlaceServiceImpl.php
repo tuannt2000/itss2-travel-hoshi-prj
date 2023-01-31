@@ -40,8 +40,9 @@ class PlaceServiceImpl extends BaseServiceImpl implements PlaceService
 
     public function search($data = []) {
         $address = $data['address'] ?? null;
-        $season = $data['season'] ?? 0;
+        $month = $data['month'] ?? 0;
         $price = $data['price'] ?? null;
+        $tag = $data['tag'] ?? 0;
         $places = $this->model
             ->distinct()
             ->select([
@@ -53,16 +54,26 @@ class PlaceServiceImpl extends BaseServiceImpl implements PlaceService
                     ->orWhere('places.name', 'like', '%' . $address . '%');
             });
 
-        if ($season != 0 || !is_null($price)) {
+        if ($month != 0 || !is_null($price)) {
             $places = $places->join('blogs', 'blogs.place_id', '=', 'places.id');
 
-            if ($season != 0) {
-                $places = $places->where('blogs.season', $season);
+            if ($month != 0) {
+                $places = $places->where('blogs.season', ceil((int)$month/3));
             }
 
             if (!is_null($price)) {
                 $places = $places->where('blogs.price', $price);
             }
+        }
+
+        if ($tag != 0) {
+            $places = $places->whereIn('places.id', function ($query) use ($tag) {
+                $query->select('place_tags.place_id')
+                    ->from('place_tags')
+                    ->whereIn('place_tags.tag_id', $tag)
+                    ->groupBy('place_tags.place_id')
+                    ->havingRaw('COUNT(place_tags.place_id) = ?', [count($tag)]);
+            });
         }
 
         $places = $places->paginate(10);

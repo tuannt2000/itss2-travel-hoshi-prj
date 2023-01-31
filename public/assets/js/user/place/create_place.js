@@ -59,6 +59,13 @@ $(document).ready(function($) {
 
         showImage(file)
     })
+
+    $('.tag-label').click(function() {
+        $(this).toggleClass('active');
+        setValueTag()
+    })
+
+    setValueTag()
 });
 
 function showImage (file) {
@@ -77,4 +84,16 @@ function showVideo (file) {
         console.log(video);
         video[0].src = URL.createObjectURL(file);
     }
+}
+
+function setValueTag () {
+    let val = '';
+    $(".tag-label.active").each(function(index) {
+        val += $(this).attr('data-value')
+        if (index != $(".tag-label.active").length - 1) {
+            val += ','
+        }
+    });
+    
+    $('#tag').val(val);
 }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\BlogController;
+use App\Http\Controllers\User\BlogFavouriteController;
 use App\Http\Controllers\User\CommentController;
 use App\Http\Controllers\User\PlaceController;
 use App\Http\Controllers\User\PlaceFavouriteController;
@@ -36,6 +37,7 @@ Route::middleware(['role:user'])->group(function () {
         Route::post('/edit/{id}', [PlaceController::class, 'update'])->name('update');
         Route::get('my', [PlaceController::class, 'showMyPlaces'])->name('show_my_places');
         Route::get('/remove/{place}', [PlaceController::class, 'delete'])->name('remove');
+        Route::post('/vote', [PlaceController::class, 'vote'])->name('vote');
     });
     Route::group([
         'prefix' => 'blog',
@@ -48,6 +50,7 @@ Route::middleware(['role:user'])->group(function () {
         Route::post('detail/vote', [BlogController::class, 'vote'])->name('vote');
         Route::get('place/{id}', [BlogController::class, 'showByPlace'])->name('show_by_place');
         Route::get('my', [BlogController::class, 'showMyBlogs'])->name('show_my_blogs');
+        Route::get('like', [BlogController::class, 'showLikeBlogs'])->name('show_like_blogs');
         Route::post('/favourite/delete/{id}', [BlogController::class, 'deleteBlogFavourite'])->name('delete');
     });
 
@@ -65,6 +68,8 @@ Route::middleware(['role:user'])->group(function () {
     ], function () {
         Route::get('like/{place}', [PlaceFavouriteController::class, 'like'])->name('like');
         Route::get('dislike/{place}', [PlaceFavouriteController::class, 'dislike'])->name('dislike');
+        Route::get('like/blog/{blog}', [BlogFavouriteController::class, 'like'])->name('like_blog');
+        Route::get('dislike/blog/{blog}', [BlogFavouriteController::class, 'dislike'])->name('dislike_blog');
     });
 
     Route::group([

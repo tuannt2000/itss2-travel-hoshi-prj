@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserBlogFavourite extends Model
+class UserPlaceVote extends Model
 {
     use HasFactory;
 
@@ -19,8 +18,8 @@ class UserBlogFavourite extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function blog()
+    public function place()
     {
-        return $this->belongsTo(Blog::class);
+        return $this->belongsTo(Place::class);
     }
 }

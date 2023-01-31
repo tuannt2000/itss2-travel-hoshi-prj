@@ -19,6 +19,7 @@
     <link rel="icon" href="images/favicon.png">
 
     <link rel="stylesheet" href="{{ asset('assets/css/user/app.css') }}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
     @yield('css')
     @yield('title')
@@ -40,6 +41,7 @@
     <script src="{{ asset('web/js/validator.min.js') }}"></script> <!-- Validator.js') }} - Bootstrap plugin that validates forms -->
     <script src="{{ asset('web/js/scripts.js') }}"></script> <!-- Custom scripts -->
     <script src="{{ asset('assets/js/user/place.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
     @yield('js')
 </body>
 </html>

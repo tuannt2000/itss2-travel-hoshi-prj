@@ -32,11 +32,12 @@ $(document).ready(function(){
 
 function handleSearch(page = 1) {
     const address = $('.user-place-search #address').val();
-    const season = $('.user-place-search #season').val();
+    const month = $('.user-place-search #month').val();
     const price = $('.user-place-search #price').val();
+    const tag = $('.user-place-search #tag').val();
 
     $.ajax({
-        url: '?address=' + address + '&season=' + season +  '&price=' + price + '&page=' + page,
+        url: '?address=' + address + '&month=' + month +  '&price=' + price + '&tag=' + tag + '&page=' + page,
         type: "get",
         datatype: "html"
     }).done(function(data){
