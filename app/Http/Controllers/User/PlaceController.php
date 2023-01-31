@@ -42,6 +42,7 @@ class PlaceController extends Controller
     public function create()
     {
         $addresses = [];
+        $tags = Tag::all();
 
         try {
             $response = Http::get('https://provinces.open-api.vn/api/p/');
@@ -53,7 +54,7 @@ class PlaceController extends Controller
             Log::error($e);
         }
 
-        return view('user.pages.place.create', compact('addresses'));
+        return view('user.pages.place.create', compact('addresses', 'tags'));
     }
 
     public function store(PlaceRequest $request)
@@ -84,6 +85,14 @@ class PlaceController extends Controller
                         'file_path' => explode("public/", $file_path)[1]
                     ]);
                 }
+            }
+
+            if ($request->tag != '') {
+                $tags = explode(",", $request->tag);
+                $place_tags = array_map(function($result) use($place) {
+                    return new PlaceTag(['tag_id' => $result]);
+                }, $tags);
+                $place->placetags()->saveMany($place_tags);
             }
             DB::commit();
             return redirect()->route('user.home')->with('success', ' create new place success');

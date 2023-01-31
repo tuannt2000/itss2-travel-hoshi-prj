@@ -19,7 +19,7 @@
 <div id="intro" class="basic-1">
     <form class="container user-place-search" action="">
         <div class="form-row mb-2 p-1">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
                 <label for="address">Address</label>
                 <input type="text" class="form-control" id="address" name="address" value="{{$address ?? ''}}" placeholder="Where do you want to go?">
             </div>
@@ -35,6 +35,14 @@
             <div class="form-group col-md-3">
                 <label for="price">Price</label>
                 <input type="text" class="form-control" id="price" name="price" value="{{$price ?? ''}}">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="season">Tags</label>
+                <select id="tag" name="tag" class="form-control selectpicker" multiple data-live-search="true">
+                    @foreach ($tags_select as $tag_select)
+                        <option class="uppercase" value="{{ $tag_select->id }}">{{ $tag_select->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group col-md-1 d-flex flex-column justify-content-end">
                 <button type="submit" class="btn btn-primary">Search</button>

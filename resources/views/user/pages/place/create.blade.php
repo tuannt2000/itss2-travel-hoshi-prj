@@ -76,12 +76,40 @@
                                     <label class="form-control-label" for="content"><i class="w3-xxlarge fa fa-map mr-1"></i>{{ __('Place Description') }}</label>
                                     <textarea name="content" style="border: 1px solid #ced4da; height: 200px" id="content" class="form-control" placeholder="{{ __('Description...') }}" value="" required></textarea>
                                 </div>
+
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTag">
+                                        Choose Tags
+                                    </button>
+                                </div>
+
+                                <input type="hidden" id="tag" name="tag">
                             </div>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary mt-4">{{ __('Save') }}</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalTag" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tag</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="tag-main">
+                    @foreach ($tags as $tag)
+                    <div class="tag-label" data-value="{{$tag->id}}">#{{$tag->name}}</div>
+                    @endforeach
                 </div>
             </div>
         </div>

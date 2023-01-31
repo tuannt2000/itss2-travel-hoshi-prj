@@ -42,6 +42,7 @@ class PlaceServiceImpl extends BaseServiceImpl implements PlaceService
         $address = $data['address'] ?? null;
         $month = $data['month'] ?? 0;
         $price = $data['price'] ?? null;
+        $tag = $data['tag'] ?? 0;
         $places = $this->model
             ->distinct()
             ->select([
@@ -63,6 +64,16 @@ class PlaceServiceImpl extends BaseServiceImpl implements PlaceService
             if (!is_null($price)) {
                 $places = $places->where('blogs.price', $price);
             }
+        }
+
+        if ($tag != 0) {
+            $places = $places->whereIn('places.id', function ($query) use ($tag) {
+                $query->select('place_tags.place_id')
+                    ->from('place_tags')
+                    ->whereIn('place_tags.tag_id', $tag)
+                    ->groupBy('place_tags.place_id')
+                    ->havingRaw('COUNT(place_tags.place_id) = ?', [count($tag)]);
+            });
         }
 
         $places = $places->paginate(10);

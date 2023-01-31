@@ -9,23 +9,4 @@ $(document).ready(function($) {
             $('#show-img').css('display', 'none');
         }
     })
-
-    $('.tag-label').click(function() {
-        $(this).toggleClass('active');
-        setValueTag()
-    })
-
-    setValueTag()
 });
-
-function setValueTag () {
-    let val = '';
-    $(".tag-label.active").each(function(index) {
-        val += $(this).attr('data-value')
-        if (index != $(".tag-label.active").length - 1) {
-            val += ','
-        }
-    });
-    
-    $('#tag').val(val);
-}

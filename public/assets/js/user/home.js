@@ -34,9 +34,10 @@ function handleSearch(page = 1) {
     const address = $('.user-place-search #address').val();
     const month = $('.user-place-search #month').val();
     const price = $('.user-place-search #price').val();
+    const tag = $('.user-place-search #tag').val();
 
     $.ajax({
-        url: '?address=' + address + '&month=' + month +  '&price=' + price + '&page=' + page,
+        url: '?address=' + address + '&month=' + month +  '&price=' + price + '&tag=' + tag + '&page=' + page,
         type: "get",
         datatype: "html"
     }).done(function(data){
