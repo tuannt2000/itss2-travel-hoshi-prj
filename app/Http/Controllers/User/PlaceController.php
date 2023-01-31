@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Place\PlaceRequest;
 use App\Services\Interfaces\PlaceService;
 use App\Models\Place;
+use App\Models\PlaceTag;
+use App\Models\Tag;
 use App\Services\Interfaces\UserPlaceVoteService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -40,6 +42,7 @@ class PlaceController extends Controller
     public function create()
     {
         $addresses = [];
+        $tags = Tag::all();
 
         try {
             $response = Http::get('https://provinces.open-api.vn/api/p/');
@@ -51,7 +54,7 @@ class PlaceController extends Controller
             Log::error($e);
         }
 
-        return view('user.pages.place.create', compact('addresses'));
+        return view('user.pages.place.create', compact('addresses', 'tags'));
     }
 
     public function store(PlaceRequest $request)
@@ -83,6 +86,14 @@ class PlaceController extends Controller
                     ]);
                 }
             }
+
+            if ($request->tag != '') {
+                $tags = explode(",", $request->tag);
+                $place_tags = array_map(function($result) use($place) {
+                    return new PlaceTag(['tag_id' => $result]);
+                }, $tags);
+                $place->placetags()->saveMany($place_tags);
+            }
             DB::commit();
             return redirect()->route('user.home')->with('success', ' create new place success');
         } catch (\Exception $e) {
@@ -97,6 +108,8 @@ class PlaceController extends Controller
     {
         $place = $this->placeService->find($id);
         $addresses = [];
+        $tags = Tag::all();
+        $place_tags = $place->placetags()->pluck('tag_id')->toArray();
 
         try {
             $response = Http::get('https://provinces.open-api.vn/api/p/');
@@ -108,7 +121,7 @@ class PlaceController extends Controller
             Log::error($e);
         }
 
-        return view('user.pages.place.edit', compact('place', 'addresses'));
+        return view('user.pages.place.edit', compact('place', 'addresses', 'tags', 'place_tags'));
     }
 
     public function showMyPlaces() {
@@ -142,6 +155,15 @@ class PlaceController extends Controller
                         'file_path' => explode("public/", $file_path)[1]
                     ]);
                 }
+            }
+
+            $place->placetags()->delete();
+            if ($request->tag != '') {
+                $tags = explode(",", $request->tag);
+                $place_tags = array_map(function($result) use($place) {
+                    return new PlaceTag(['tag_id' => $result]);
+                }, $tags);
+                $place->placetags()->saveMany($place_tags);
             }
             DB::commit();
             return redirect()->route('user.home')->with('success', 'Update place success');
