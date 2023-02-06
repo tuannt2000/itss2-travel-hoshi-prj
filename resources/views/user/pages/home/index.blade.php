@@ -40,7 +40,7 @@
                 <label for="season">Tags</label>
                 <select id="tag" name="tag" class="form-control selectpicker" multiple data-live-search="true">
                     @foreach ($tags_select as $tag_select)
-                        <option class="uppercase" value="{{ $tag_select->id }}">{{ $tag_select->name }}</option>
+                        <option class="uppercase" value="{{ $tag_select->id }}">#{{ $tag_select->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -49,8 +49,11 @@
             </div>
         </div>
     </form>
-    <div class="container place-list" id="tag_container">
-        @include('user.pages.components.place.list')
+    <div class="container place-list">
+        <div class="row">
+            <div class="col-md-8" id="tag_container">@include('user.pages.components.place.list')</div>
+            <div class="col-md-4 border-left border-bottom border-primary" style="height: fit-content;">@include('user.pages.components.place.hot_place')</div>
+        </div>
     </div> <!-- end of container -->
 
 </div> <!-- end of basic-1 -->

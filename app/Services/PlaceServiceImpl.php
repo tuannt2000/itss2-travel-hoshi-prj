@@ -49,6 +49,7 @@ class PlaceServiceImpl extends BaseServiceImpl implements PlaceService
                 'places.*'
             ])
             ->with('placeImages')
+            ->withAvg('userPlaceVotes', 'vote')
             ->where(function ($query) use ($address) {
                 $query->where('places.address', 'like', '%' . $address . '%')
                     ->orWhere('places.name', 'like', '%' . $address . '%');
@@ -75,8 +76,6 @@ class PlaceServiceImpl extends BaseServiceImpl implements PlaceService
                     ->havingRaw('COUNT(place_tags.place_id) = ?', [count($tag)]);
             });
         }
-
-        $places = $places->paginate(10);
 
         return $places;
     }
