@@ -8,6 +8,8 @@
                 <video autoplay loop class="img-fluid" src="{{ asset('storage/' . $place->placeImages[0]->file_path) }} "></video>
                 @elseif (count($place->placeImages))
                 <img class="img-fluid" src="{{ asset('storage/' . $place->placeImages[0]->file_path) }} " alt="no file" />
+                @else
+                <img class="img-fluid" src="{{ asset('assets/images/No-image.jpg') }} " alt="no file" />
                 @endif
             </a>
             <div class="place-item-content">

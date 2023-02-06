@@ -244,3 +244,48 @@ filter:drop-shadow(5px 1px 3px rgba(198, 206, 237, 1));
     background-color: #f36c01;
     color: #fff;
 }
+
+.border-header {
+    position: relative;
+}
+
+.border-header:after {
+    content: "";
+    width: 85px;
+    height: 2px;
+    background-color: #0069d9;
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+}
+
+.hot-place-img {
+    height: 100px !important;
+}
+
+.hot-place-link {
+    height: fit-content !important;
+}
+
+.hot-place-title {
+    font-size: 17px;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+    width: 130px;
+    margin-bottom: 0;
+}
+
+.hot-place-content {
+    font-size: 13px;
+    line-height: 1.4;
+    margin-bottom: 0;
+}
+
+.rating-span {
+    font-size: 12px;
+}
+
+.rating-title {
+    font-size: 12px;
+}
