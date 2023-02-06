@@ -52,7 +52,7 @@
     <div class="container place-list">
         <div class="row">
             <div class="col-md-8" id="tag_container">@include('user.pages.components.place.list')</div>
-            <div class="col-md-4 border-left border-bottom border-primary" style="height: fit-content;">@include('user.pages.components.place.hot_place')</div>
+            <div class="col-md-4 shadow p-3 mb-5 bg-white rounded" style="height: fit-content">@include('user.pages.components.place.hot_place')</div>
         </div>
     </div> <!-- end of container -->
 
